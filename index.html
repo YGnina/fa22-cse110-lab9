@@ -87,7 +87,21 @@
     </section>
   </main>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
+    window.TrackJS && TrackJS.install({
+      token: "a1825bb8dfde49da8fce2d1b6d069713"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  
+  class ValidationError extends Error {
+    constructor (message) {
+      super(message); // (1)
+      this.name = "ValidationError"; // (2)
+    }
+  }
+  
+
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -102,6 +116,124 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+
+
+    //step 2
+    //reference: https://developer.mozilla.org/en-US/docs/Web/API/console
+    
+
+    errorBtns[0].addEventListener('click',e=>{
+      console.log('Console Log Demo');
+    });
+
+    errorBtns[1].addEventListener('click',e=>{
+      console.error('Console Error Demo');//log('Console Error Demo');
+    });
+
+    
+    errorBtns[2].addEventListener('click',e=>{
+      console.count('Console Count');
+    });
+
+    errorBtns[3].addEventListener('click',e=>{
+      console.warn('Console Warn Button');
+    });
+
+    errorBtns[4].addEventListener('click',e=>{
+      //console.assert(3==2,'Then number does not equal 3');//firstNum,'Then number does not equal 3');
+      const number = 2;
+      const errorMsg = 'Then number does not equal 3';
+      console.assert(3 == 2, {number:`${number}`,errorMsg});
+    
+    });
+
+    errorBtns[5].addEventListener('click',e=>{
+      console.clear();
+    });
+
+    errorBtns[6].addEventListener('click',e=>{
+      console.dir(errorBtns[6]);//object);
+    });
+
+    errorBtns[7].addEventListener('click',e=>{
+      console.dirxml(errorBtns[7]);//object);
+    });
+
+    errorBtns[8].addEventListener('click',e=>{
+      console.group('console.group');
+    });
+
+    errorBtns[9].addEventListener('click',e=>{
+      console.groupEnd();
+    });
+
+
+    function course(name, num) {
+      this.name = name;
+      this.num = num;
+    }
+    const c1 = new course('Software Engineering',110);
+    const c2 = new course('Programming Languages',130);
+    const c3 = new course('Advanced Software Engineering',112);
+    errorBtns[10].addEventListener('click',e=>{
+      console.table([c1,c2,c3]);
+    });
+
+    errorBtns[11].addEventListener('click',e=>{
+      console.time('Timer Button:');
+    });
+
+    errorBtns[12].addEventListener('click',e=>{
+      console.timeEnd('Timer Button:');
+    });
+
+
+    // function deepest(){
+    //   deeper();
+    // }
+    // function deeper(){
+    //   deep();
+    // }
+
+    // function deep(){
+    //   handleBtnClick();
+    // }
+    // function handleBtnClick(){
+    //   errorBtns[14].addEventListener('click',e=>{
+    //     console.trace(deepest());
+    //   });
+    // }
+    errorBtns[13].addEventListener('click', e=>{
+      const deepest = () => { console.trace(); };
+      const deeper = () => { deepest(); };
+      const deep = () => { deeper(); };
+      const handleBtnClick = () =>{ deep();}
+      handleBtnClick(); 
+      console.log('console.trace');
+    });
+
+    // errorBtns[15].addEventListener('click',e=>{
+    //   new ReferenceError('boom is');
+    //   console.log('Sadly an error happened my friend',ReferenceError('boom is'));
+    // });
+    errorBtns[14].addEventListener('click', e=>{
+      try {
+        boom();
+    } catch (err) {
+      console.log("Sadly an Error happened my friend.");
+      throw new ValidationError("Sadly an Error happened my friend.");
+    } finally{
+      console.log("Global Error");
+    }
+    });
+    window.onerror = function (msg, url, lineNo, columnNo, error){
+      alert('ErrorMessage' + msg, 'URL' + url + 'lineNo'+ lineNo + 'columnNo' + columnNo + 'StackTrace' + error);
+    }
+
+  TrackJS.track('Testing TrackJS!');
+  
+
+
   </script>
 </body>
 
